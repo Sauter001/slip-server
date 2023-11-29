@@ -16,9 +16,9 @@ import java.util.Arrays;
 @Service
 @RequiredArgsConstructor
 public class CCTVStreamingService {
-    private static String PRIVATE_IP;
-    private static String EXTERNAL_IP;
-    private static String rtspURL;
+    private static String PRIVATE_IP = "";
+    private static String EXTERNAL_IP = "";
+    private static String rtspURL = "";
     private static final String OUTPUT_DIR = "slip-server/src/user_video";
     ;
     private static final int RECORD_DURATION = 5000;
