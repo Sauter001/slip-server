@@ -43,6 +43,9 @@ public class CCTVStreamingService {
         new Thread(this::maintainNumberOfVideos).start();
     }
 
+    /**
+     * 연결된 CCTV로부터 프레임을 받아옴
+     */
     public void getStreamingFrame() {
         try (FFmpegFrameGrabber grabber = createFrameGrabber();) {
 
@@ -54,6 +57,10 @@ public class CCTVStreamingService {
         }
     }
 
+    /**
+     * 스트리밍으로 받아오는 frame을 영상으로 변환한다.
+     * @param grabber 프레임 수집할 grabber
+     */
     private void processStreaming(FFmpegFrameGrabber grabber) throws Exception {
         long startTime = System.currentTimeMillis();
         FFmpegFrameRecorder recorder = null;
@@ -79,14 +86,12 @@ public class CCTVStreamingService {
         }
     }
 
-    private FFmpegFrameRecorder checkAndResetRecorder(FFmpegFrameRecorder recorder, FFmpegFrameGrabber grabber, long startTime) throws Exception {
-        if (recorder == null || (System.currentTimeMillis() - startTime) >= RECORD_DURATION) {
-            closeRecorder(recorder);
-            return createRecorder(grabber);
-        }
-        return recorder;
-    }
-
+    /**
+     *
+     * @param grabber 프레임의 정보를 받아올 grabber
+     * @return {FFmpegFrameRecorder} 영상을 녹화할 recorder
+     * @throws Exception
+     */
     private FFmpegFrameRecorder createRecorder(FFmpegFrameGrabber grabber) throws Exception {
         String fileName = "video_" + System.currentTimeMillis() + ".mp4";
 
@@ -128,9 +133,12 @@ public class CCTVStreamingService {
         return grabber;
     }
 
+    /**
+     * user_video 디렉토리의 영상 수가 MAX_NUM_OF_VIDEOS를 초과하면 가장 오래된 영상부터 삭제한다.
+     */
     @PostConstruct
     private void maintainNumberOfVideos() {
-        final int MAX_NUM_OF_VIDEOS = 12;
+        final int MAX_NUM_OF_VIDEOS = 12; // 기본값 12
 
         while (true) {
             File dir = new File(OUTPUT_DIR);
