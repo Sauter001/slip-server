@@ -7,6 +7,9 @@ import lombok.Setter;
 
 @AllArgsConstructor
 public class Config {
+    public Config() {
+    }
+
     @JsonProperty("private_ip")
     private String privateIp;
 

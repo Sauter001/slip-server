@@ -4,6 +4,7 @@ import com.breakingadv.slipserver.configuration.Config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.bytedeco.ffmpeg.global.avcodec;
 import org.bytedeco.javacv.*;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -43,8 +44,7 @@ public class CCTVStreamingService {
     }
 
     public void getStreamingFrame() {
-        try (FFmpegFrameGrabber grabber = createFrameGrabber();
-             Java2DFrameConverter converter = new Java2DFrameConverter();) {
+        try (FFmpegFrameGrabber grabber = createFrameGrabber();) {
 
             grabber.start();
             processStreaming(grabber);
@@ -107,8 +107,9 @@ public class CCTVStreamingService {
         }
 
         FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(OUTPUT_DIR + File.separator + fileName, grabber.getImageWidth(), grabber.getImageHeight());
-        FFmpegLogCallback.set();
         recorder.setAudioChannels(1);
+        recorder.setAudioCodec(avcodec.AV_CODEC_ID_AAC);
+        FFmpegLogCallback.set();
         recorder.start();
         return recorder;
     }
@@ -127,7 +128,7 @@ public class CCTVStreamingService {
         return grabber;
     }
 
-
+    @PostConstruct
     private void maintainNumberOfVideos() {
         final int MAX_NUM_OF_VIDEOS = 12;
 
