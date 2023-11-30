@@ -135,6 +135,7 @@ public class CCTVStreamingService {
 
     /**
      * user_video 디렉토리의 영상 수가 MAX_NUM_OF_VIDEOS를 초과하면 가장 오래된 영상부터 삭제한다.
+     * NOTE: 가장 최근의 영상은 기록 중인 상태라 완전히 녹화가 끝난 영상은 11번째 것을 이용해야 함
      */
     @PostConstruct
     private void maintainNumberOfVideos() {
