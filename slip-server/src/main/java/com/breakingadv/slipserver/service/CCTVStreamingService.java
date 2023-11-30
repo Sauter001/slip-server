@@ -1,6 +1,6 @@
 package com.breakingadv.slipserver.service;
 
-import com.breakingadv.slipserver.entity.Config;
+import com.breakingadv.slipserver.configuration.Config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;

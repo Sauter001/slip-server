@@ -1,11 +1,11 @@
-package com.breakingadv.slipserver.entity;
+package com.breakingadv.slipserver.configuration;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class Config {
     @JsonProperty("private_ip")
     private String privateIp;
