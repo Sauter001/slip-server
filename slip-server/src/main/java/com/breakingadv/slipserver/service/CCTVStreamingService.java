@@ -24,7 +24,7 @@ public class CCTVStreamingService {
     ;
     private static final int RECORD_DURATION = 5000;
 
-    @PostConstruct
+    @PostConstruct // 자동 실행하려면 주석 해제
     public void init() {
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -140,7 +140,7 @@ public class CCTVStreamingService {
      * user_video 디렉토리의 영상 수가 MAX_NUM_OF_VIDEOS를 초과하면 가장 오래된 영상부터 삭제한다.
      * NOTE: 가장 최근의 영상은 기록 중인 상태라 완전히 녹화가 끝난 영상은 11번째 것을 이용해야 함
      */
-    @PostConstruct
+
     private void maintainNumberOfVideos() {
         final int MAX_NUM_OF_VIDEOS = 12; // 기본값 12
 

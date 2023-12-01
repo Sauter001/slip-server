@@ -1,5 +1,6 @@
 package com.breakingadv.slipserver;
 
+import com.breakingadv.slipserver.service.CCTVStreamingService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
