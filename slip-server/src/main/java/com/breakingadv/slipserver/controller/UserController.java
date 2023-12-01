@@ -1,5 +1,6 @@
 package com.breakingadv.slipserver.controller;
 
+import com.breakingadv.slipserver.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,5 +9,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
-    private final UserController userController;
+    private final UserService userService;
 }

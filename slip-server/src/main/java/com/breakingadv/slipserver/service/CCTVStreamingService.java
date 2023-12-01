@@ -22,7 +22,7 @@ public class CCTVStreamingService {
     private static String rtspURL = "";
     private static final String OUTPUT_DIR = "slip-server/src/user_video";
     ;
-    private static final int RECORD_DURATION = 5000;
+    private static final int RECORD_DURATION = 5000; // 영상 녹화 단위
 
     @PostConstruct // 자동 실행하려면 주석 해제
     public void init() {
