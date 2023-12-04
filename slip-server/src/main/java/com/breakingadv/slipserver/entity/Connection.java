@@ -12,10 +12,15 @@ public class Connection {
     @Column(nullable = false)
     private int uid;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String ip;
     @Column(name = "cctv_name", nullable = false)
     private String cctvName;
+
+    @Column(name = "streaming_username", nullable = false, unique = true)
+    private String streamingUsername;
+    @Column(name = "streaming_password", nullable = false, unique = true)
+    private String streamingPassword;
 
     @ManyToOne
     @JoinColumn(name = "uid", referencedColumnName = "uid", insertable = false, updatable = false)

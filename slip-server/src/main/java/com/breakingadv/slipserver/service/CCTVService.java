@@ -5,6 +5,8 @@ import com.breakingadv.slipserver.repository.CCTVRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class CCTVService {
@@ -13,11 +15,11 @@ public class CCTVService {
 
 
     public DuplicationResponse getDuplication(String ip) {
-        boolean isDuplicated = cctvRepository.existsByIp(ip);
-        return new DuplicationResponse(isDuplicated);
-    }
-
-    public boolean existsByIp(String ip) {
-        return false;
+        Optional<String> ips = cctvRepository.findByIp(ip);
+        if (ips.isPresent()) {
+            return new DuplicationResponse(true);
+        } else {
+            return new DuplicationResponse(false);
+        }
     }
 }

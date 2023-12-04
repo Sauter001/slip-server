@@ -7,11 +7,15 @@ import lombok.*;
 @NoArgsConstructor
 public class CCTV {
     @Id
+    @Column(length = 50)
     private String ip;
+
+    @Column(name = "private_ip",length=50)
+    private String privateIp;
 
     @Column(nullable = false)
     private boolean emergency;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 128)
     private String phoneNumber;
 
     @Builder

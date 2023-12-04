@@ -7,4 +7,7 @@ import lombok.Getter;
 @Getter
 public class CCTVDuplicationRequest {
     private String ip;
+
+    public CCTVDuplicationRequest() {
+    }
 }
