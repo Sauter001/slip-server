@@ -6,6 +6,7 @@ import lombok.*;
 
 @Entity(name = "connections")
 @IdClass(ConnectionPK.class)
+@Setter
 @NoArgsConstructor
 public class Connection {
     @Id
@@ -16,11 +17,6 @@ public class Connection {
     private String ip;
     @Column(name = "cctv_name", nullable = false)
     private String cctvName;
-
-    @Column(name = "streaming_username", nullable = false, unique = true)
-    private String streamingUsername;
-    @Column(name = "streaming_password", nullable = false, unique = true)
-    private String streamingPassword;
 
     @ManyToOne
     @JoinColumn(name = "uid", referencedColumnName = "uid", insertable = false, updatable = false)

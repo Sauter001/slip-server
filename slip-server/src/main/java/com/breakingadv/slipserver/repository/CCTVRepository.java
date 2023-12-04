@@ -6,8 +6,10 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 
-public interface CCTVRepository  extends JpaRepository<CCTV, Integer> {
+public interface CCTVRepository extends JpaRepository<CCTV, Integer> {
 
     @Query("select c.ip from cctv c where c.ip = ?1")
     Optional<String> findByIp(String ip);
+
+
 }

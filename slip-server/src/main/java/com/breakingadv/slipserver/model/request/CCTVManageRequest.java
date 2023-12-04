@@ -9,5 +9,7 @@ public class CCTVManageRequest {
     private String id;
     private String cctvName;
     private String phoneNumber;
+    private String streamingUsername;
+    private String streamingPassword;
     private String ip;
 }
