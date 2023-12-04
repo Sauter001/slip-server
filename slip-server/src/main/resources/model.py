@@ -2,7 +2,6 @@ import cv2
 import dill  # pickle 대신 dill 사용
 import random
 
-
 def main():
     # 저장된 모델 파일을 불러오기
     file_name = 'output_model.pkl'
@@ -10,7 +9,7 @@ def main():
         loaded_model = dill.load(file)
 
     # 동영상 파일 경로
-    video_path = 'slip-server/src/user_video/video_1701393676731.mp4'
+    video_path = '../../user_video/video_1701393655848.mp4'
 
     # 동영상 파일 불러오기
     video_capture = cv2.VideoCapture(video_path)

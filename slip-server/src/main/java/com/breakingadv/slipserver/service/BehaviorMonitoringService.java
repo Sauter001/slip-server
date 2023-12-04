@@ -15,11 +15,7 @@ public class BehaviorMonitoringService {
     @PostConstruct
     public void init() {
         new Thread(this::processMonitoring).start();
-        try {
-            getAIResult();
-        } catch (IOException e) {
-            System.out.println("Input problem");
-        }
+
     }
 
     public void processMonitoring() {
@@ -27,6 +23,18 @@ public class BehaviorMonitoringService {
          * if 배회 -> 프론트에 전송
          * else -> 영상 삭제
          */
+        try {
+            boolean result = getAIResult();
+            System.out.println(result);
+            if (result) {
+                System.out.println("배회 발생");
+            } else {
+                System.out.println("문제 없음");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Input problem");
+        }
     }
 
     /**
@@ -34,20 +42,19 @@ public class BehaviorMonitoringService {
      */
     public boolean getAIResult() throws IOException {
         // TODO: 가장 최근 영상을 AI 모델에 학습 후 결과 반환
-        final String PATH = "slip-server/src/main/resources/";
+        final String PATH = System.getProperty("user.dir") + "/slip-server/src/main/resources/";
         final String fname = "model.py";
 
-        Process process = Runtime.getRuntime().exec("cd " + PATH + "; python " + fname);
+        Process process = Runtime.getRuntime().exec("cmd /c cd " + PATH + "&& python " + fname);
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
         String line = null;
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder wanderState = new StringBuilder();
 
         while ((line = reader.readLine()) != null) {
-            stringBuilder.append(line);
-            stringBuilder.append("\n");
+            wanderState.append(line);
+            wanderState.append("\n");
         }
-        System.out.println(stringBuilder);
 
-        return false;
+        return !wanderState.isEmpty();
     }
 }
