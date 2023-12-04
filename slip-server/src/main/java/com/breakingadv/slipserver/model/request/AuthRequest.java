@@ -1,5 +1,6 @@
 package com.breakingadv.slipserver.model.request;
 
+
 import com.breakingadv.slipserver.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

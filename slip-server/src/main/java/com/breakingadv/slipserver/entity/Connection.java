@@ -1,26 +1,33 @@
 package com.breakingadv.slipserver.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Getter
-@Entity
-@RequiredArgsConstructor
+
+@Entity(name = "connections")
+@IdClass(ConnectionPK.class)
+@NoArgsConstructor
 public class Connection {
     @Id
-    private String userId;
-    @Id
+    @Column(nullable = false)
+    private int uid;
+
+    @Column(nullable = false)
     private String ip;
-    @Column
+    @Column(name = "cctv_name", nullable = false)
     private String cctvName;
 
+    @ManyToOne
+    @JoinColumn(name = "uid", referencedColumnName = "uid", insertable = false, updatable = false)
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "ip", referencedColumnName = "ip", insertable = false, updatable = false)
+    private CCTV cctv;
+
     @Builder
-    public Connection(String userId, String ip, String cctvName) {
-        this.userId = userId;
+    public Connection(int userId, String ip, String cctvName) {
+        this.uid = userId;
         this.ip = ip;
         this.cctvName = cctvName;
     }

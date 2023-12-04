@@ -4,4 +4,5 @@ import com.breakingadv.slipserver.entity.CCTV;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CCTVRepository  extends JpaRepository<CCTV, Integer> {
+    boolean existsByIp(String ip);
 }

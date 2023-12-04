@@ -1,20 +1,17 @@
 package com.breakingadv.slipserver.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import lombok.Builder;
-import lombok.RequiredArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Entity
-@RequiredArgsConstructor
+@Entity(name = "cctv")
+@NoArgsConstructor
 public class CCTV {
     @Id
     private String ip;
 
-    @Column
+    @Column(nullable = false)
     private boolean emergency;
-    @Column
+    @Column(nullable = false)
     private String phoneNumber;
 
     @Builder

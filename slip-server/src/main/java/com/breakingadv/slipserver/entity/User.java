@@ -1,18 +1,21 @@
 package com.breakingadv.slipserver.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
-@Entity
-@RequiredArgsConstructor
+@Getter
+@Setter
+@Entity(name = "users")
+@NoArgsConstructor
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int uid;
+
+    @Column(nullable = false, unique = true)
     private String id;
 
-    @Column(nullable = false)
+    @Column(name = "pw", nullable = false)
     private String password;
 
     @Builder
