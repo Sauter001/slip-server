@@ -1,5 +1,6 @@
 package com.breakingadv.slipserver.controller;
 
+import com.breakingadv.slipserver.exception.UserNotFoundException;
 import com.breakingadv.slipserver.model.request.CCTVManageRequest;
 import com.breakingadv.slipserver.model.request.DeleteCCTVRequest;
 import com.breakingadv.slipserver.model.response.ApiResponse;
@@ -98,6 +99,23 @@ public class CCTVController {
             }
 
             ApiResponse<CCTVInfoResponse> apiResponse = new ApiResponse<>(false, errorMessage, null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse);
+        }
+    }
+
+    @GetMapping("/{userId}/nameIsDuplicated")
+    @ResponseBody
+    public ResponseEntity<ApiResponse<DuplicationResponse>> getNameDuplication(
+            @PathVariable String userId,
+            @RequestParam String cctvName) {
+        try {
+            DuplicationResponse response = connectionService.getCCTVNameDuplication(userId, cctvName);
+            return ResponseEntity.ok(
+                    new ApiResponse<>(true, "CCTV 이름 중복 여부 (true: 중복됨, false: 중복 안됨)", response)
+            );
+        } catch (UserNotFoundException e) {
+            // 존재하지 않는 사용자 정보일 시
+            ApiResponse<DuplicationResponse> apiResponse = new ApiResponse<>(false, "사용자가 존재하지 않습니다.", null);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse);
         }
     }

@@ -3,6 +3,7 @@ package com.breakingadv.slipserver.service;
 import com.breakingadv.slipserver.exception.UserNotFoundException;
 import com.breakingadv.slipserver.model.request.DeleteCCTVRequest;
 import com.breakingadv.slipserver.model.response.CCTVInfoResponse;
+import com.breakingadv.slipserver.model.response.DuplicationResponse;
 import com.breakingadv.slipserver.repository.ConnectionRepository;
 import com.breakingadv.slipserver.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +41,21 @@ public class ConnectionService {
             connectionRepository.deleteAllCCTV(uid.get());
             List<String> cctvNames = connectionRepository.findCctvNamesByUid(uid.get());
             return new CCTVInfoResponse(cctvNames);
+        } else {
+            throw new UserNotFoundException(userId);
+        }
+    }
+
+    public DuplicationResponse getCCTVNameDuplication(String userId, String cctvName) throws UserNotFoundException {
+        // 사용자의 uid 가져오기
+        Optional<Integer> uid = userRepository.findUidById(userId);
+        if (uid.isPresent()) {
+            List<String> cctvs = connectionRepository.findCctvNamesByUid(uid.get()); // 사용자의 cctv 목록 가져오기
+            if (cctvs.contains(cctvName)) {
+                return new DuplicationResponse(true);
+            } else {
+                return new DuplicationResponse(false);
+            }
         } else {
             throw new UserNotFoundException(userId);
         }
