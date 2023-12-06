@@ -3,9 +3,8 @@ package com.breakingadv.slipserver.controller;
 import com.breakingadv.slipserver.exception.UserNotFoundException;
 import com.breakingadv.slipserver.model.request.CCTVManageRequest;
 import com.breakingadv.slipserver.model.request.DeleteCCTVRequest;
-import com.breakingadv.slipserver.model.response.ApiResponse;
-import com.breakingadv.slipserver.model.response.CCTVInfoResponse;
-import com.breakingadv.slipserver.model.response.DuplicationResponse;
+import com.breakingadv.slipserver.model.request.EmergencyRequest;
+import com.breakingadv.slipserver.model.response.*;
 import com.breakingadv.slipserver.service.CCTVService;
 import com.breakingadv.slipserver.service.ConnectionService;
 import lombok.RequiredArgsConstructor;
@@ -116,6 +115,28 @@ public class CCTVController {
         } catch (UserNotFoundException e) {
             // 존재하지 않는 사용자 정보일 시
             ApiResponse<DuplicationResponse> apiResponse = new ApiResponse<>(false, "사용자가 존재하지 않습니다.", null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse);
+        }
+    }
+
+    @PutMapping("/{userId}/confirm")
+    @ResponseBody
+    public ResponseEntity<ApiResponse<EmergencyConfirmResponse>> confirmEmergency(
+            @RequestBody EmergencyRequest request,
+            @PathVariable String userId) {
+        try {
+            EmergencyConfirmResponse response = cctvService.confirmEmergency(request, userId);
+            return ResponseEntity.ok(
+                    new ApiResponse<EmergencyConfirmResponse>(
+                            true,
+                            "위험 상황 확인 완료",
+                            response)
+            );
+        } catch (UserNotFoundException e) {
+            ApiResponse<EmergencyConfirmResponse> apiResponse = new ApiResponse<>(
+                    false,
+                    "위험 상황 확인 실패",
+                    null);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse);
         }
     }
