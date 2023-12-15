@@ -34,7 +34,7 @@ public class CCTVStreamingService {
             PRIVATE_IP = config.getPrivateIp();
             EXTERNAL_IP = config.getExternalIp();
             // 외부에서 접속 시 PRIVATE_IP를 EXTERNAL_IP로 변경 필요
-            rtspURL = config.getRtspUrl().replace("{ip}", EXTERNAL_IP);
+            rtspURL = config.getRtspUrl().replace("{ip}", PRIVATE_IP);
 
         } catch (Exception e) {
             e.printStackTrace();

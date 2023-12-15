@@ -9,7 +9,8 @@ def main():
         loaded_model = dill.load(file)
 
     # 동영상 파일 경로
-    video_path = '../../user_video/video_1701393655848.mp4'
+    fname = input()
+    video_path = f'../../user_video/{fname}'
 
     # 동영상 파일 불러오기
     video_capture = cv2.VideoCapture(video_path)
